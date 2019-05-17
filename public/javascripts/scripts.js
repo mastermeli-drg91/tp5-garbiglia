@@ -107,19 +107,50 @@ request.onload = function () {
                 if (request3.status >= 200 && request3.status < 400) {
                     var i = 1;
                     var valor = col*fil;
-                    data.forEach(trend => {
-                        if (i <= valor ){
-                            const card = document.createElement('div');
-                            card.setAttribute('class', 'card');
-                            const h1 = document.createElement('h1');
-                            h1.textContent = trend.keyword;
+                    // data.forEach(trend => {
 
-                            container4.appendChild(card);
-                            card.appendChild(h1);
-                            i = i + 1;
+                        var tbl = document.createElement("table");
+                        var tblBody = document.createElement("tbody");
+
+                        // cells creation
+                        for (var j = 1; j <= fil; j++) {
+                            // table row creation
+                            var row = document.createElement("tr");
+
+                            for (var i = 1; i <= col; i++) {
+                                // create element <td> and text node
+                                //Make text node the contents of <td> element
+                                // put <td> at end of the table row
+                                var cell = document.createElement("td");
+                                cell.setAttribute('class', 'card');
+                                const h1 = document.createElement('h1');
+                                h1.textContent = data[i+(j*i)].keyword;
+
+                                // const card = document.createElement('div');
+                                // card.setAttribute('class', 'card');
+                                // const h1 = document.createElement('h1');
+                                // h1.textContent = trend.keyword;
+
+                                // container4.appendChild(card);
+                                // card.appendChild(cell);
+
+                                cell.appendChild(h1);
+                                row.appendChild(cell);
+                            }
+
+                            //row added to end of table body
+                            tblBody.appendChild(row);
                         }
 
-                    });
+                        // append the <tbody> inside the <table>
+                        tbl.appendChild(tblBody);
+
+                        // tbl border attribute to
+                        tbl.setAttribute("border", "2");
+                        container4.appendChild(tbl);
+
+
+                    // });
                 }
 
             }
@@ -166,4 +197,37 @@ function getCategories(id) {
     request.send();
 }
 
+function tableCreate() {
+    //body reference
+
+    // create elements <table> and a <tbody>
+    var tbl = document.createElement("table");
+    var tblBody = document.createElement("tbody");
+
+    // cells creation
+    for (var j = 0; j <= 2; j++) {
+        // table row creation
+        var row = document.createElement("tr");
+
+        for (var i = 0; i < 2; i++) {
+            // create element <td> and text node
+            //Make text node the contents of <td> element
+            // put <td> at end of the table row
+            var cell = document.createElement("td");
+            var cellText = document.createTextNode("cell is row " + j + ", column " + i);
+
+            cell.appendChild(cellText);
+            row.appendChild(cell);
+        }
+
+        //row added to end of table body
+        tblBody.appendChild(row);
+    }
+
+    // append the <tbody> inside the <table>
+    tbl.appendChild(tblBody);
+
+    // tbl border attribute to
+    tbl.setAttribute("border", "2");
+}
 
